@@ -1,0 +1,33 @@
+on: [workflow_dispatch, push]
+name: Test Actions security on a fork
+
+jobs:
+  test-actions-security:
+    permissions: # needed for Vault JWT auth
+      contents: read
+      id-token: write
+    runs-on: [k8s-arm64-small]
+    timeout-minutes: 90
+    concurrency: "test-actions-security"
+
+    steps:
+      - name: Git Clone the Repository
+        uses: actions/checkout@v4
+
+      - run: echo hello Propeller
+
+      - name: (should not work) Acquire Vault token and export it into the environment
+        uses: hashicorp/vault-action@v3
+        with:
+          url: http://vault-active.vault.svc.cluster.local:8200
+          role: vault-actions-deployer-development
+          method: jwt
+          path: jwt-github-actions
+          exportToken: true
+
+      - name: (should not work) Configure AWS credentials
+        uses: aws-actions/configure-aws-test-actions-security@v4
+        with:
+          role-to-assume: "arn:aws:iam::938257508866:role/vault-actions-deploy"
+          role-session-name: "GHA_test_actions_security"
+          aws-region: us-east-1
