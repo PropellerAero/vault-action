@@ -33,6 +33,7 @@
         "url": "https://github.com/hashicorp/vault-action/issues"
     },
     "homepage": "https://github.com/hashicorp/vault-action#readme",
+    "packageManager": "pnpm@8.15.9",
     "dependencies": {
         "got": "^11.8.5",
         "jsonata": "^2.0.4",
