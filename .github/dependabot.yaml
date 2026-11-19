@@ -2,18 +2,10 @@
 # outside of office hours.
 # https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
 version: 2
-registries:
-  npm-npmjs: # Define registry for private access
-    type: npm-registry
-    url: https://registry.npmjs.org
-    token: ${{ secrets.NPM_TOKEN }}
 updates:
   # Keep npm dependencies up to date
   - package-ecosystem: "npm"
     directory: "/"
-    # Allow version updates for dependencies in these registries
-    registries:
-      - npm-npmjs
     # Check the npm registry for updates on Sunday 7pm UTC / Monday 5am AEST. This
     # should be out of office hours so as to not block CI but not too long before
     # people wake up, in case the updates cause issues.
@@ -21,7 +13,7 @@ updates:
       interval: "weekly"
       day: "sunday"
       time: "19:00"
-    # Delay version updates by x days after publication to allow time for malicious 
+    # Delay version updates by x days after publication to allow time for malicious
     # versions to be discovered and removed.
     cooldown:
       default-days: 7
@@ -34,7 +26,7 @@ updates:
       interval: "weekly"
       day: "sunday"
       time: "19:00"
-    # Delay version updates by x days after publication to allow time for malicious 
+    # Delay version updates by x days after publication to allow time for malicious
     # versions to be discovered and removed.
     cooldown:
       default-days: 7
@@ -47,7 +39,7 @@ updates:
       interval: "weekly"
       day: "sunday"
       time: "19:00"
-    # Delay version updates by x days after publication to allow time for malicious 
+    # Delay version updates by x days after publication to allow time for malicious
     # versions to be discovered and removed.
     cooldown:
       default-days: 7
