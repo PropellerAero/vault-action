@@ -2,6 +2,8 @@ jest.mock('got');
 jest.mock('@actions/core');
 jest.mock('@actions/core/lib/command');
 jest.mock('fs', () => ({
+    // @actions/io (via @actions/core >= 1.11) reads fs.constants at load time.
+    constants: jest.requireActual('fs').constants,
     stat: jest.fn().mockResolvedValue(null),
     promises: {
         access: jest.fn().mockResolvedValue(null),
